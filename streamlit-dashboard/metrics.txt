@@ -1,0 +1,6 @@
+shore_kafka_producer_latency_count
+shore_http_error_rate
+moon_http_error_rate
+shore_http_latency_seconds_bucket
+process_cpu_seconds_total
+shore_kafka_producer_latency_bucket

@@ -1,0 +1,14 @@
+requests
+pyyaml
+pandas
+jsonpath-ng
+matplotlib
+streamlit
+plotly
+scikit-learn
+ptvsd
+prometheus_pandas
+prophet
+stumpy
+python-dotenv
+prometheus-api-client

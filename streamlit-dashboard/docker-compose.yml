@@ -1,0 +1,14 @@
+services:
+  streamlit-dashboard:
+    container_name: streamlit-dashboard
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - STREAMLIT_SERVER_PORT=8501
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge

@@ -1,0 +1,50 @@
+# Ignorar o arquivo .env para evitar expor credenciais ou variáveis sensíveis
+
+# Ignorar diretórios e arquivos de controle de versão
+.git
+.gitignore
+
+# Ignorar arquivos de configuração de IDEs e editores de texto
+*.vscode/
+*.idea/
+*.vscode/*
+*.idea/*
+
+# Ignorar cache do Python e arquivos compilados
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignorar dependências locais e caches
+*.egg-info/
+*.eggs/
+*.egg
+*.whl
+*.dist-info/
+pip-wheel-metadata/
+*.log
+
+# Ignorar arquivos temporários e de backup
+*.bak
+*.swp
+*.tmp
+*~
+
+# Ignorar arquivos de dados temporários
+.DS_Store
+Thumbs.db
+
+# Ignorar pastas de build e logs
+build/
+dist/
+*.log
+*.coverage
+htmlcov/
+
+# Ignorar arquivos de Streamlit temporários
+.streamlit/config.toml
+.streamlit/secrets.toml
+
+# Ignorar arquivos específicos do Docker (opcional, dependendo da estrutura do projeto)
+Dockerfile
+docker-compose.yml

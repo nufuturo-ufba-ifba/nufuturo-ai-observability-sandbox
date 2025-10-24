@@ -1,0 +1,18 @@
+# Executa o script Python todos os dias às 06:00 da manhã
+26 7 * * * /usr/local/bin/python /app/calculate_std_dev.py >> /var/log/cron.log 2>&1
+
+# Executa o script Python todos os dias às 08:10 da manhã
+29 7 * * * /usr/local/bin/python /app/calculate_std_dev.py >> /var/log/cron.log 2>&1
+
+# Executa o script Python todos os dias às 08:15 da tarde
+15 08 * * * /usr/local/bin/python /app/calculate_std_dev.py >> /var/log/cron.log 2>&1
+
+
+# Executa o script Python todos os dias às 08:15 da tarde
+10 08 * * * /usr/local/bin/python /app/calculate_std_dev.py >> /var/log/cron.log 2>&1
+
+# Executa o script Python todos os dias às 08:15 da tarde
+20 08 * * * /usr/local/bin/python /app/calculate_std_dev.py >> /var/log/cron.log 2>&1
+
+# Executa o script Python todos os dias à meia-noite
+0 0 * * * /usr/local/bin/python /app/calculate_std_dev.py >> /var/log/cron.log 2>&1

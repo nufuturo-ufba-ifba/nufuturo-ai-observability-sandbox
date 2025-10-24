@@ -1,0 +1,38 @@
+[project]
+name = "anomaly-detection-mcp"
+version = "1.0.0"
+description = "Anomaly Detection MCP"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "mcp[cli]",
+  "prometheus-api-client",
+  "python-dotenv",
+  "pyproject-toml>=0.1.0",
+  "requests",
+  "structlog>=23.0.0",
+  "pyyaml",
+  "pandas",
+  "jsonpath-ng",
+  "matplotlib",
+  "streamlit",
+  "plotly",
+  "scikit-learn",
+  "ptvsd",
+  "prometheus_pandas",
+  "prophet",
+  "stumpy",
+  "kaleido"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0.0",
+  "pytest-cov>=4.0.0",
+  "pytest-asyncio>=0.21.0",
+  "pytest-mock>=3.10.0"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
