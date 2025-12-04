@@ -41,3 +41,4 @@ logs/
 .venvrc
 *csv
 *.txt
+uv.lock

@@ -1,4 +1,5 @@
 import streamlit as st
+# O style continua sendo importado da raiz, então não muda nada aqui
 from style import apply_nubank_style, display_title_and_image, apply_custom_style
 
 # 1) Configuração Inicial
@@ -8,36 +9,30 @@ st.set_page_config(
     layout="wide"
 )
 
-# 2) Função Principal que carrega o estilo e define a navegação
+# 2) Função Principal
 def Main():     
-    # Aplica o CSS do Nubank
     apply_nubank_style()
-    
-    # Header Personalizado (Logo no canto)
     display_title_and_image()
-    
-    # Ajustes finais de CSS
     apply_custom_style()
 
-    # Tenta mostrar o logo na Sidebar (se existir o arquivo)
     try:
         st.logo("./nubank-logo-0-1.png")
     except:
-        pass # Ignora se não tiver imagem
+        pass
 
     # ─────────────────────────────────────────────────────────────────────────
-    # DEFINIÇÃO DAS PÁGINAS (Apontando para seus arquivos existentes)
+    # DEFINIÇÃO DAS PÁGINAS (Agora apontando para a pasta src/)
     # ─────────────────────────────────────────────────────────────────────────
     
-    # Página Principal
-    principal_page = st.Page("logsanalyser.py", title="Dashboard Principal", icon="🏠")
+    # Repare que agora adicionamos "src/" antes do nome do arquivo
+    principal_page = st.Page("src/logsanalyser.py", title="Dashboard Principal", icon="🏠")
     
-    # Ferramentas Específicas
-    txt_page = st.Page("logsanalyser-txt.py", title="Analisador TXT", icon="📄")
-    json_page = st.Page("logsanalyser-json.py", title="Analisador JSON", icon="🔍")
+    txt_page = st.Page("src/logsanalyser-txt.py", title="Analisador TXT", icon="📄")
+    
+    json_page = st.Page("src/logsanalyser-json.py", title="Analisador JSON", icon="🔍")
     
     # ─────────────────────────────────────────────────────────────────────────
-    # ROTEAMENTO / NAVEGAÇÃO
+    # ROTEAMENTO
     # ─────────────────────────────────────────────────────────────────────────
     pages = st.navigation(
         {
@@ -49,7 +44,6 @@ def Main():
         }
     )        
     
-    # Executar a navegação
     pages.run()
 
 if __name__ == "__main__":
