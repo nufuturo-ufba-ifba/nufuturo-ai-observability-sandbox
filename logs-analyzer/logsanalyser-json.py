@@ -1176,7 +1176,7 @@ def main():
             
             st.markdown("""
             <div style="text-align: center;">
-                <h2 style="color: #5E35B1; margin-bottom: 2rem;">Como Usar o Analisador de logs do Pipeline</h2>
+                <h2 style="color: #5E35B1; margin-bottom: 2rem;">Como Usar o Analisador de logs do Sentry</h2>
             </div>
             """, unsafe_allow_html=True)
             
