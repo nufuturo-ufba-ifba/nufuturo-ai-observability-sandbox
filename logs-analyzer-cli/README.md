@@ -1,78 +1,85 @@
-#!/bin/bash
+# logs-analyzer-cli: Analyzer for pipeline .txt logs
 
-cat > README.md << 'EOF'
-# logs-analyzer-cli
+This is a simple CLI script to filter important error messages from unstructured `.txt` log files.
 
-This project is a CLI application called logs-analyzer-cli, which analyzes logs using Drain3 and AI-powered insights with Ollama.
+It works by grouping log lines into "blocks" (like an exception and its stack trace) and then checking those blocks against a list of keywords to find errors.
 
 ## Prerequisites
 
 - Python 3.x installed.
+- [uv](https://github.com/astral-sh/uv) installed (a fast Python installer).
 - Access to a terminal or command line.
-- Ollama installed and running (optional, for AI analysis).
 
-## How to run
+## How to Run
 
-Follow the steps below to set up and run the project:
-
-1. **Clone the repository** (if applicable) or navigate to the project directory:
-    ```
+1.  **Navigate to the project directory**:
+    ```bash
     cd logs-analyzer-cli
     ```
 
-2. **Create a virtual environment** (optional, but recommended):
+2.  **Create and activate the virtual environment** (optional, but good practice):
+    ```bash
+    uv venv
+    source .venv/bin/activate
     ```
-    python3 -m venv .venv
+    *(On Windows, use: `.venv\Scripts\activate`)*
+
+3.  **Install dependencies**:
+    ```bash
+    uv pip install -e .
     ```
 
-3. **Activate the virtual environment**:
-    - On Linux/Mac:
-      ```
-      source .venv/bin/activate
-      ```
-    - On Windows:
-      ```
-      venv\Scripts\activate
-      ```
+4.  **Run the analyzer**:
+    The script will print the filtered logs directly to your terminal AND save a copy to a new timestamped file (e.g., `logs-filtrado-20251031143000.txt`).
 
-4. **Install the dependencies**:
-    ```
-    pip install -r requirements.txt
-    ```
-
-5. **Configure environment variables**:
-    - Copy `.env.example` to `.env`:
-      ```
-      cp .env.example .env
-      ```
-    - Edit `.env` with your settings (model name, Ollama URL, etc.):
-      ```
-      USE_IA=True
-      OLLAMA_MODEL=deepseek-coder
-      OLLAMA_URL=http://localhost:11434
-      ```
-
-6. **Run the analyzer**:
-    ```
-    python3 analyzer.py <log-file.json>
+    ```bash
+    python3 main.py <path_to_log_file.txt>
     ```
 
     **Example**:
+    ```bash
+    python3 main.py logs.txt
     ```
-    python3 analyzer.py logs.json
-    ```
 
-## Usage
+## Script Logic for Multi-Line Error Messages
 
-### Basic usage:
-```
-python3 analyzer.py logs.json
-```
+The script's logic is designed to handle multi-line error messages (like stack traces):
 
-## Notes
+### Read Line by Line
+It reads the original log file one line at a time.
 
-- Ensure that the `requirements.txt` and `analyzer.py` files are present in the directory.
-- To disable AI analysis, set `USE_IA=False` in your `.env` file.
-- Ollama must be running for AI analysis to work.
-- To deactivate the virtual environment, run `deactivate`.
-EOF
+### Detect Blocks
+It uses a Regular Expression (`block_start_regex`) to identify lines that start with a timestamp (e.g., `2025-08-13T...` or `00:00 +0...`). This line marks the beginning of a "log block".
+
+### Group Stack Traces
+Any line that does not start with a timestamp is considered a continuation (part of the stack trace) and is grouped with the previous block.
+
+### Check for Errors
+When the script finds the next timestamp, it stops and checks the entire block it just collected.
+
+### Filter by Keyword
+It checks if any line in that block contains one of the keywords from the `IMPORTANT_KEYWORDS` list (e.g., `ERROR`, `Exception`, `failed`).
+
+### Print and Save
+If an important keyword is found, the entire block (from the first timestamp to the last line of its stack trace) is printed to the terminal AND saved to the new `...-filtrado-....txt` file.
+
+### Discard
+If no keyword is found, the entire block is discarded.
+
+## How to Customize
+
+You can easily change what the script filters by editing the `IMPORTANT_KEYWORDS` list directly inside `main.py`.
+
+```python
+    # Keywords that mark a block as "important"
+    IMPORTANT_KEYWORDS = [
+        'clojure.lang.ExceptionInfo',   # Clojure errors/exceptions
+        'ERROR',                        # Generic errors
+        'Error:',                       # Dart/Flutter errors
+        'Some tests failed.',           # Test failure summary
+        'java.lang.ArithmeticException',# Other Java exceptions
+        'Compilation failed',           # Flutter compilation error
+        'FAIL in',                      # Clojure test failure
+        'Tests failed.'                 # Clojure test failure summary
+    ]
+
