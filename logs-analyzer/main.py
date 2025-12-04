@@ -12,6 +12,16 @@ def Main():
     display_title_and_image()
     apply_custom_style()
 
+    st.markdown("""
+        <style>
+            [data-testid="stSidebar"] {
+                background-color: #F0F2F6;
+            }
+            [data-testid="stSidebar"] * {
+                color: #262626 !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
     principal_page = st.Page("src/logsanalyser.py", title="Analisador de Logs CSV", icon="🏠")    
     txt_page = st.Page("src/logsanalyser-txt.py", title="Analisador TXT", icon="📄")    

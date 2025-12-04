@@ -72,7 +72,7 @@ def apply_nubank_style():
             color: #CCCCCC !important;
         }
 
-        /* ——— Container “NuVision” ——— */
+        /* ——— Container “nulogs” ——— */
         .title-and-image-container {
             display: flex;
             justify-content: flex-end;
@@ -135,7 +135,7 @@ def display_title_and_image():
         <div class="title-and-image-container">
             <div class="title-and-image-content">
                 <img src="data:image/png;base64,{get_image_as_base64('./nubank-logo-0-1.png')}" width="80">
-                <div class="title">NuVision</div>
+                <div class="title">nulogs</div>
             </div>
         </div>
         """,
