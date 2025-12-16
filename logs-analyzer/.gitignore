@@ -42,3 +42,4 @@ logs/
 *csv
 *.txt
 uv.lock
+logs_analyzer.egg-info
