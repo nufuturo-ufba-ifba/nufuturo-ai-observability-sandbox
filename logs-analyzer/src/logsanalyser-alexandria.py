@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 from collections import defaultdict
 import datetime
 import io
+import re
 
 st.set_page_config(
     layout="wide", 
@@ -195,8 +196,6 @@ def detect_separator(line):
     if ';' in line and line.count(';') > line.count(','):
         return ';'
     return ','
-
-import re
 
 def extract_first_uuid(text):
     if not isinstance(text, str):
@@ -433,12 +432,22 @@ def main():
             st.markdown('<div class="section-header">📋 Detalhes dos Eventos</div>', unsafe_allow_html=True)
             
             all_cols = filtered_df.columns.tolist()
-            default_cols = ['normalized_timestamp', 'source_file', 'normalized_user_id']
-            for c in ['event', 'action', 'screen', 'message', 'level']: 
+            
+            priority_cols = ['normalized_timestamp', 'level', 'service', 'cid', 'normalized_user_id', 'log']
+            
+            default_cols = []
+            for c in priority_cols:
                 if c in all_cols:
                     default_cols.append(c)
             
-            default_cols = [c for c in default_cols if c in all_cols]
+           
+            secondary_cols = ['host', 'message', 'event', 'action', 'screen']
+            for c in secondary_cols:
+                if c in all_cols and c not in default_cols:
+                    default_cols.append(c)
+            
+            if len(default_cols) < 3:
+                 if 'source_file' in all_cols: default_cols.append('source_file')
             
             cols_to_show = st.multiselect(
                 "Colunas Visíveis",
@@ -453,10 +462,32 @@ def main():
                 else:
                      df_display = filtered_df[cols_to_show]
 
+                column_config = {
+                    "log": st.column_config.JsonColumn(
+                        "log",
+                        help="Visualização estruturada do objeto de log",
+                        width="large"
+                    ),
+                    "normalized_timestamp": st.column_config.DatetimeColumn(
+                        "Timestamp",
+                        format="D MMM YYYY, HH:mm:ss.SS"
+                    ),
+                    "normalized_user_id": st.column_config.TextColumn(
+                        "UserId",
+                        width="medium"
+                    ),
+                     "cid": st.column_config.TextColumn(
+                        "Correlation ID",
+                        width="medium",
+                        help="ID único para rastrear a requisição entre serviços"
+                    ),
+                }
+
                 st.dataframe(
                     df_display,
+                    column_config=column_config,
                     use_container_width=True,
-                    height=500
+                    height=600
                 )
             else:
                 st.warning("Selecione pelo menos uma coluna para visualizar.")
