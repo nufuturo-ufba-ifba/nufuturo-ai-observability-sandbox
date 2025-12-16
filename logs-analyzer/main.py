@@ -23,13 +23,14 @@ def Main():
         </style>
     """, unsafe_allow_html=True)
 
+    alexandria_page = st.Page("src/logsanalyser-alexandria.py", title="Analisador de Logs Alexandria", icon="🧬")
     principal_page = st.Page("src/logsanalyser.py", title="Analisador de Logs CSV", icon="🏠")    
     txt_page = st.Page("src/logsanalyser-txt.py", title="Analisador TXT", icon="📄")    
     json_page = st.Page("src/logsanalyser-json.py", title="Analisador JSON", icon="🔍")
 
     pages = st.navigation(
         {
-            "Home": [principal_page],
+            "Home": [alexandria_page, principal_page],
             "Ferramentas de Logs": [
                 txt_page,
                 json_page
