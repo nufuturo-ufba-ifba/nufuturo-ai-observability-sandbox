@@ -132,22 +132,22 @@ Replace the environment variables with your actual Prometheus server details.
     ```
 2. Follow the detailed instructions in the [anomaly-detection-mcp README](anomaly-detection-mcp/README.md) to configure and run the service.
 
+
 ### How to run Logs Analyzer
 
 1. Go to the `logs-analyzer` directory:
     ```bash
     cd logs-analyzer
-
-2. Follow the detailed instructions in the  [logs-analyzer README](logs-analyzer/README.md)  README to configure and run the service.
-
+    ```
+2. Follow the detailed instructions in the [logs-analyzer README](logs-analyzer/README.md) to configure and run the service.
 
 ### How to run Logs Analyzer CLI
 
-1. Go to the `logs-analyzer` directory:
+1. Go to the `logs-analyzer-cli` directory:
     ```bash
-    cd logs-analyzer
-
-2. Follow the detailed instructions in the  [logs-analyzer README](logs-analyzer/README.md)  README to configure and run the service.
+    cd logs-analyzer-cli
+    ```
+2. Follow the detailed instructions in the [logs-analyzer-cli README](logs-analyzer-cli/README.md) to configure and run the service.
 
 ---
 
