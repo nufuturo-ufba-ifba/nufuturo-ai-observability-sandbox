@@ -1,5 +1,5 @@
 import streamlit as st
-from style import apply_nubank_style, display_title_and_image, apply_custom_style
+from style import apply_style, display_title_and_image, apply_custom_style
 
 st.set_page_config(
     page_title="LogVision",
@@ -8,7 +8,7 @@ st.set_page_config(
 )
 
 def Main():     
-    apply_nubank_style()
+    apply_style()
     display_title_and_image()
     apply_custom_style()
 

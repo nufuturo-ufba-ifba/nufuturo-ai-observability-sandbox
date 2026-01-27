@@ -1,6 +1,6 @@
 import streamlit as st
 
-def apply_nubank_style():
+def apply_style():
     st.markdown(
         """
         <style>
