@@ -77,8 +77,6 @@ Always run `docker-compose up -d` inside the corresponding folder to start the s
 
 # 🖼️ Images
 
-![Streamlit Dashboard Screenshot](img1.png)
-
 ![Dashboard Filters](docs/img2.png)
 
 ![Anomaly Table](docs/img3.png)

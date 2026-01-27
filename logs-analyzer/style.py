@@ -1,4 +1,3 @@
-import base64
 import streamlit as st
 
 def apply_nubank_style():
@@ -7,12 +6,10 @@ def apply_nubank_style():
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-        /* ——— Fonte Montserrat para todo o App ——— */
         html, body, [class*="css"] {
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* ——— Botões (todos os st.button) ——— */
         .stButton button {
             background-color: #8A05BE !important;
             color: #FFFFFF !important;
@@ -26,7 +23,6 @@ def apply_nubank_style():
             background-color: #6F03A1 !important;
         }
 
-        /* ——— Cabeçalhos H1, H2, H3 ——— */
         h1 {
             color: #8A05BE;
             font-weight: 700;
@@ -43,13 +39,11 @@ def apply_nubank_style():
             font-size: 1.25rem;
         }
 
-        /* ——— Parágrafos e textos padrão ——— */
         p {
             color: inherit;
             font-size: 1rem;
         }
 
-        /* ========== INPUTS (st.text_input, st.text_area) ========== */
         html[data-theme="light"] .stTextInput>div>div>input,
         html[data-theme="light"] .stTextArea>div>div>textarea {
             background-color: #E6E6FA !important;
@@ -72,24 +66,12 @@ def apply_nubank_style():
             color: #CCCCCC !important;
         }
 
-        /* ——— Container “nulogs” ——— */
-        .title-and-image-container {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        .title-and-image-container img {
-            border-radius: 5px;
-        }
         .title {
             color: #8A05BE;
             font-size: 1.25rem;
             font-weight: 700;
-            margin-left: 0.5rem;
         }
 
-        /* ——— Card para métricas ——— */
         .metric-card {
             background-color: #FFFFFF;
             border-radius: 8px;
@@ -106,17 +88,14 @@ def apply_nubank_style():
             color: inherit;
         }
 
-        /* ——— Sidebar no modo escuro ——— */
         html[data-theme="dark"] [data-testid="stSidebar"] > div:first-child {
             background-color: #171717 !important;
         }
 
-        /* ——— Cor de fundo do corpo principal no modo escuro ——— */
         html[data-theme="dark"] .stApp {
             background-color: #212121 !important;
         }
 
-        /* ——— Sidebar no modo claro ——— */
         html[data-theme="light"] [data-testid="stSidebar"] > div:first-child {
             background-color: #F0F0F0 !important;
         }
@@ -125,18 +104,11 @@ def apply_nubank_style():
         unsafe_allow_html=True
     )
 
-def get_image_as_base64(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
-
 def display_title_and_image():
     st.markdown(
-        f"""
-        <div class="title-and-image-container">
-            <div class="title-and-image-content">
-                <img src="data:image/png;base64,{get_image_as_base64('./nubank-logo-0-1.png')}" width="80">
-                <div class="title">nulogs</div>
-            </div>
+        """
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+            <div class="title">Vision</div>
         </div>
         """,
         unsafe_allow_html=True

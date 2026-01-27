@@ -1,59 +1,73 @@
-# LogsNubank
+# Logs-Analy
 
-This project is a Streamlit application called LogsNubank, which analyzes logs.
+This project is a Streamlit application called **Logs-Analy**, used to analyze application logs.
 
 ## Prerequisites
 
-- Python 3.x installed.
-- Access to a terminal or command line.
+* Python 3.x installed
+* **uv** installed
+
+If you don’t have **uv** installed yet, follow the official installation guide:
+
+[https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_1](https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_1)
 
 ## Running with Docker
 
-If you prefer to use Docker, ensure Docker and Docker Compose are installed. Then, run:
+If you prefer to use Docker, make sure Docker and Docker Compose are installed. Then, simply run:
 
 ```
 docker-compose up -d
 ```
 
-This will build and run the application in a container. Access it at `http://localhost:8501`.
+This will build and run the application in a container.
+Access it at: `http://localhost:8501`
 
-## How to run
+## How to run (using uv)
 
-Follow the steps below to set up and run the project manually:
+Follow the steps below to set up and run the project manually using **uv**:
 
-1. **Clone the repository** (if applicable) or navigate to the project directory:
+1. **Navigate to the project directory**:
+
     ```
-    cd /workspaces/LOGS
+    cd logs-analyzer
     ```
 
-2. **Create a virtual environment** (optional, but recommended):
+2. **Create a virtual environment with uv**:
+
     ```
-    python3 -m venv .venv
+    uv venv
     ```
+
+    This command creates a `.venv` folder in the project root.
 
 3. **Activate the virtual environment**:
-    - On Linux/Mac:
+
+    Activating the virtual environment ensures that all dependencies are installed and run in an isolated environment.
+
+    * On **Linux / macOS**:
+
       ```
       source .venv/bin/activate
       ```
     - On Windows:
       ```
-      venv\Scripts\activate
+      .venv\Scripts\activate
       ```
 
-4. **Install the dependencies**:
+4. **Install the project in editable mode**:
+
     ```
-    pip install -r requirements.txt
+    uv pip install -e .
     ```
 
 5. **Run the Streamlit application**:
+
     ```
     streamlit run main.py
     ```
 
-The application will open in the default browser. If it doesn't open automatically, use `"$BROWSER" http://localhost:8501` in the terminal.
+The application will open in your default browser. If it doesn’t open automatically, access:
 
-## Notes
-
-- Ensure that the `requirements.txt` and `main.py` files are present in the directory.
-- To deactivate the virtual environment, run `deactivate`.
+```
+http://localhost:8501
+```
