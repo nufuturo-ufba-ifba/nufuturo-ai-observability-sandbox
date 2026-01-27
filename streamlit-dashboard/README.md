@@ -1,18 +1,16 @@
-# 🔧 Requirements
+# Requirements
 
-- Python 3.10+
+- Python 3.10 or higher
 - Docker and Docker Compose
-- Prometheus and Alertmanager (optional) configured
+- Prometheus and Alertmanager (optional), properly configured
 
-
-# 🚀 How to Run the Projects
+# How to Run the Projects
 
 Each project is independent and must be configured and run separately.
 
+## Streamlit Dashboard (Frontend)
 
-## 2️⃣ Streamlit Dashboard (Frontend)
-
-### 2.1 Environment Variables Setup
+### Environment Variables Setup
 
 Enter the project folder and copy the sample file:
 
@@ -29,7 +27,7 @@ PROMETHEUS_URL=https://your-prometheus-url.example.com/select/0/prometheus/
 
 ---
 
-### 2.2 Install Dependencies (Manual)
+### Install Dependencies (Manual)
 
 ```bash
 cd streamlit-dashboard
@@ -40,7 +38,7 @@ pip install -r requirements.txt
 
 ---
 
-### 2.3 Running
+### Running
 
 #### a) Using Docker Compose
 
@@ -59,11 +57,11 @@ streamlit run app.py
 
 ---
 
-# 🧠 Features
+# Features
 
 ## Streamlit Dashboard
 
-- User-friendly interface for metric visualization
+- Interface for metric visualization
 - Real-time anomaly visualization
 - Anomaly detection using machine learning models
 - Interactive anomaly visualization
@@ -75,7 +73,7 @@ streamlit run app.py
 Each project has its own `Dockerfile` and `docker-compose.yml`.  
 Always run `docker-compose up -d` inside the corresponding folder to start the services.
 
-# 🖼️ Images
+# Images
 
 ![Dashboard Filters](docs/img2.png)
 
