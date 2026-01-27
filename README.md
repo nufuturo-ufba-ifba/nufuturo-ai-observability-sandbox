@@ -20,7 +20,7 @@ A Model Context Protocol (MCP) service for anomaly detection in time series data
 - Exposes endpoints for AI assistants to query anomaly detection results
 - Designed for integration with Claude Desktop and other MCP clients
 
-### **streamlit-dashboard/** (NuVision Tool)
+### **vision-prometheus/** 
 A comprehensive Streamlit-based dashboard for monitoring and anomaly detection:
 - Interactive web interface for metrics visualization
 - Real-time anomaly detection using multiple algorithms
@@ -116,13 +116,13 @@ Replace the environment variables with your actual Prometheus server details.
     ```
     Follow the detailed instructions in the [prometheus-mcp-server README](prometheus-mcp-server/README.md) to configure and run the service.
 
-### How to run NuVision Dashboard
+### How to run vision-prometheus Dashboard
 
-1. Go to the `streamlit-dashboard` directory:
+1. Go to the `vision-prometheus` directory:
     ```bash
-    cd streamlit-dashboard
+    cd vision-prometheus
     ```
-2. Follow the detailed instructions in the [streamlit-dashboard README](streamlit-dashboard/README.md) to configure and run the service.
+2. Follow the detailed instructions in the [vision-prometheus README](vision-prometheus/README.md) to configure and run the service.
 
 ### How to run Anomaly Detection MCP
 
@@ -156,12 +156,7 @@ Replace the environment variables with your actual Prometheus server details.
 These components can work together to provide a complete observability solution:
 
 1. **Prometheus MCP Server** provides AI assistants with access to your metrics
-2. **NuVision Dashboard** offers interactive visualization and analysis
+2. **vision-prometheus Dashboard** offers interactive visualization and analysis
 3. **Anomaly Detection MCP** provides an MCP interface for running anomaly detection algorithms on time series data
-4. **Logs Analyzer** offers AI-powered analysis and visualization of log files
-4. **Logs Analyzer CLI** offers AI-powered analysis and visualization of log files using Ollama models
-
-
-
-The MCP server is particularly useful for integrating with AI assistants like Claude Desktop, allowing natural language queries about your infrastructure metrics.
-
+4. **Logs Analyzer** provides log file analysis and visualization with a graphical interface  
+5. **Logs Analyzer CLI** offers unstructured log analysis via the command line
