@@ -31,7 +31,7 @@ st.markdown("""
     /* Reset e base */
     .stApp {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        background-color: #F8F6FF;
+        background-color: #ffffff;
     }
     
     /* Containers principais */
@@ -160,7 +160,7 @@ st.markdown("""
     .log-entry {
         font-family: 'Monaco', 'Menlo', monospace;
         font-size: 0.85rem;
-        background: #F8F6FF;
+        background: #ffffff;
         padding: 1rem;
         border-radius: 8px;
         margin: 0.5rem 0;
@@ -225,7 +225,7 @@ st.markdown("""
     
     /* Expanders */
     .streamlit-expanderHeader {
-        background: #F8F6FF;
+        background: #ffffff;
         border-radius: 8px;
         border: 1px solid #F0EBFF;
         color: #5E35B1;

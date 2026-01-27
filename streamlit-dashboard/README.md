@@ -22,7 +22,7 @@ cp .env.sample .env
 Edit the `.env` file as needed:
 
 ```env
-PROMETHEUS_URL=https://your-prometheus-url.example.com/select/0/prometheus/
+PROMETHEUS_URL=https://your-prometheus-url.example.com
 ```
 
 ---

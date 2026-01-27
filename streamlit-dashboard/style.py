@@ -11,7 +11,7 @@ def apply_style():
         }
 
         .stButton button {
-            background-color: #8A05BE !important;
+            background-color: #2563eb !important; /* Modern blue */
             color: #FFFFFF !important;
             font-size: 18px;
             border-radius: 10px;
@@ -20,21 +20,21 @@ def apply_style():
             transition: background-color 0.2s ease;
         }
         .stButton button:hover {
-            background-color: #6F03A1 !important;
+            background-color: #1e40af !important; /* Darker blue on hover */
         }
 
         h1 {
-            color: #8A05BE;
+            color: #2563eb;
             font-weight: 700;
             font-size: 3rem;
         }
         h2 {
-            color: #8A05BE;
+            color: #2563eb;
             font-weight: 700;
             font-size: 2rem;
         }
         h3 {
-            color: #6F03A1;
+            color: #1e40af;
             font-weight: 700;
             font-size: 1.25rem;
         }
@@ -46,7 +46,7 @@ def apply_style():
 
         html[data-theme="light"] .stTextInput>div>div>input,
         html[data-theme="light"] .stTextArea>div>div>textarea {
-            background-color: #E6E6FA !important;
+            background-color: #e0e7ff !important; /* Light blue background */
             border-radius: 5px;
             color: #000000 !important;
         }
@@ -57,7 +57,7 @@ def apply_style():
 
         html[data-theme="dark"] .stTextInput>div>div>input,
         html[data-theme="dark"] .stTextArea>div>div>textarea {
-            background-color: #3A3A3A !important;
+            background-color: #1e293b !important; /* Dark blue-gray */
             border-radius: 5px;
             color: #FFFFFF !important;
         }
@@ -67,7 +67,7 @@ def apply_style():
         }
 
         .title {
-            color: #8A05BE;
+            color: #2563eb;
             font-size: 1.25rem;
             font-weight: 700;
         }
@@ -81,7 +81,7 @@ def apply_style():
             margin-bottom: 1rem;
         }
         .metric-card.dark {
-            background-color: #2A2A2A;
+            background-color: #1e293b;
         }
         .metric-card p {
             margin: 0;
@@ -89,15 +89,15 @@ def apply_style():
         }
 
         html[data-theme="dark"] [data-testid="stSidebar"] > div:first-child {
-            background-color: #171717 !important;
+            background-color: #0f172a !important;
         }
 
         html[data-theme="dark"] .stApp {
-            background-color: #212121 !important;
+            background-color: #1e293b !important;
         }
 
         html[data-theme="light"] [data-testid="stSidebar"] > div:first-child {
-            background-color: #F0F0F0 !important;
+            background-color: #e0e7ff !important;
         }
         </style>
         """,
@@ -108,7 +108,7 @@ def display_title_and_image():
     st.markdown(
         """
         <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
-            <div class="title">Vision</div>
+            <div class="title">Vision Prometheus</div>
         </div>
         """,
         unsafe_allow_html=True

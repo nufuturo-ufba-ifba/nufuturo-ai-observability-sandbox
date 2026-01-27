@@ -2,7 +2,7 @@ import streamlit as st
 from style import apply_style, display_title_and_image, apply_custom_style
 
 st.set_page_config(
-    page_title="Vision",
+    page_title="Vision Prometheus",
     layout="wide"
 )
 

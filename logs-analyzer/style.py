@@ -11,7 +11,7 @@ def apply_style():
         }
 
         .stButton button {
-            background-color: #8A05BE !important;
+            background-color: ##2563eb !important;
             color: #FFFFFF !important;
             font-size: 18px;
             border-radius: 10px;
@@ -24,12 +24,12 @@ def apply_style():
         }
 
         h1 {
-            color: #8A05BE;
+            color: ##2563eb;
             font-weight: 700;
             font-size: 3rem;
         }
         h2 {
-            color: #8A05BE;
+            color: ##2563eb;
             font-weight: 700;
             font-size: 2rem;
         }
@@ -67,7 +67,7 @@ def apply_style():
         }
 
         .title {
-            color: #8A05BE;
+            color: ##2563eb;
             font-size: 1.25rem;
             font-weight: 700;
         }
@@ -108,7 +108,7 @@ def display_title_and_image():
     st.markdown(
         """
         <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
-            <div class="title">Vision</div>
+            <div class="title">Logs Analyzer</div>
         </div>
         """,
         unsafe_allow_html=True
