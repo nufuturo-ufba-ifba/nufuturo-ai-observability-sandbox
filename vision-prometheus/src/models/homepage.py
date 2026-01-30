@@ -82,9 +82,9 @@ if st.session_state.form_submitted:
         # Adicionar spinner de loading enquanto os dados são carregados
         with st.spinner('🔄 Carregando dados do Prometheus...'):
             try:
-                # Converter datas para formato ISO 8601 com fuso horário
-                inicio_iso = pd.to_datetime(st.session_state.begin).tz_localize('America/Sao_Paulo', ambiguous='raise', nonexistent='raise').strftime('%Y-%m-%dT%H:%M:%SZ')
-                fim_iso = pd.to_datetime(st.session_state.end).tz_localize('America/Sao_Paulo', ambiguous='raise', nonexistent='raise').strftime('%Y-%m-%dT%H:%M:%SZ')
+                # Ajuste de data para o Prometheus (formato UTC ISO)
+                inicio_iso = pd.to_datetime(st.session_state.begin).strftime('%Y-%m-%dT%H:%M:%SZ')
+                fim_iso = pd.to_datetime(st.session_state.end).strftime('%Y-%m-%dT%H:%M:%SZ')
 
                 # Consultar dados do Prometheus
                 prom_data = st.session_state.prom_connection.query_range(
@@ -94,7 +94,7 @@ if st.session_state.form_submitted:
                 # Verificar se retornou dados
                 if prom_data is None or len(prom_data) == 0:
                     st.error("❌ Não foi possível obter os dados dessa métrica")
-                    st.session_state.form_submitted = False  # Resetar para permitir nova tentativa
+                    st.session_state.form_submitted = False
                 else:
                     # Armazenar dados em um DataFrame
                     df = pd.DataFrame(columns=["time", "values"])
@@ -104,7 +104,7 @@ if st.session_state.form_submitted:
                     # Exibir subtítulo com a query
                     st.subheader(f"Query: {st.session_state.prom_query}")
 
-                    # Criar gráfico de linha
+                    # Criar gráfico de linha (Design Original)
                     linha = go.Scatter(
                         x=df['time'],
                         y=df["values"],
@@ -114,23 +114,21 @@ if st.session_state.form_submitted:
                     )
 
                     fig = go.Figure(data=[linha])
-
-                    # Exibir gráfico
                     st.plotly_chart(fig, use_container_width=True)
 
             except Exception as e:
                 st.error(f"❌ Erro ao processar dados: {str(e)}")
                 with st.expander("🔧 Informações de Debug"):
                     st.exception(e)
-                st.session_state.form_submitted = False  # Resetar para permitir nova tentativa
+                st.session_state.form_submitted = False
 
-        # Exibir opções de métodos de análise
+        # --- SEÇÃO DE LINKS (CAMINHOS CORRIGIDOS) ---
         st.subheader("Escolha um método de análise:")
-        st.page_link("isolation_forest.py", label="Isolation Forest", icon="🌲")
-        st.page_link("z_score.py", label="Z-Score", icon="💤")
-        st.page_link("prophet_analysis.py", label="Prophet", icon="🔮")
-        st.page_link("matrix_profile.py", label="Matrix Profile", icon="🧮")
+        st.page_link("models/isolation_forest.py", label="Isolation Forest", icon="🌲")
+        st.page_link("models/z_score.py", label="Z-Score", icon="💤")
+        st.page_link("models/prophet_analysis.py", label="Prophet", icon="🔮")
+        st.page_link("models/matrix_profile.py", label="Matrix Profile", icon="🧮")
     else:
         st.subheader("⚠️ Configuração Necessária")
         st.info("Por favor, preencha todos os campos obrigatórios no formulário com valores válidos.")
-        st.page_link("homepage.py", label="🏠 Atualizar Formulário", use_container_width=True)
+        st.page_link("models/homepage.py", label="🏠 Atualizar Formulário", use_container_width=True)
