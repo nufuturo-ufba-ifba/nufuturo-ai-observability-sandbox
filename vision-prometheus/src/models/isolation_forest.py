@@ -8,7 +8,6 @@ import numpy as np
 
 st.title("Isolation Forest")
 
-# Inicializar as variáveis do session_state se não existirem
 if 'prom_query' not in st.session_state:
     st.session_state.prom_query = None
 if 'begin' not in st.session_state:
@@ -21,27 +20,22 @@ if 'prom_connection' not in st.session_state:
     st.session_state.prom_connection = None
 
 if all([st.session_state.prom_query, st.session_state.begin, st.session_state.end, st.session_state.interval]):
-    
-    # Adicionar loading spinner com mensagem específica
+        
     with st.spinner('🔄 Carregando dados e executando Isolation Forest...'):
-        try:
-            # Progress bar para mostrar etapas
+        try:            
             progress_bar = st.progress(0)
             status_text = st.empty()
             
             status_text.text('Consultando dados do Prometheus...')
             progress_bar.progress(20)
-            
-            # from datetime to ISO 8601
+                        
             inicio_iso = pd.to_datetime(st.session_state.begin).tz_localize('America/Sao_Paulo').strftime('%Y-%m-%dT%H:%M:%SZ')
             fim_iso = pd.to_datetime(st.session_state.end).tz_localize('America/Sao_Paulo').strftime('%Y-%m-%dT%H:%M:%SZ')
-
-            # pull prometheus data
+            
             prom_data = st.session_state.prom_connection.query_range(
                 st.session_state.prom_query, inicio_iso, fim_iso, st.session_state.interval
             )
-
-            # Verificar se retornou dados
+            
             if prom_data is None or len(prom_data) == 0:
                 st.error("❌ Não foi possível obter os dados dessa métrica")
                 progress_bar.empty()
@@ -49,13 +43,11 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
             else:
                 status_text.text('Processando dados...')
                 progress_bar.progress(40)
-                
-                # store data in pandas dataframe
+                                
                 df = pd.DataFrame(columns=["time", "values"])
                 df["time"] = prom_data.index.to_numpy()
                 df["values"] = prom_data.values
-
-                # Verificar se ainda há dados após limpeza
+                
                 df['values'] = pd.to_numeric(df['values'], errors='coerce')
                 df.dropna(subset=['values'], inplace=True)
                 
@@ -96,7 +88,6 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                         help="Número de árvores no ensemble"
                     )
                     
-                    # Adicionar informações sobre os dados
                     st.sidebar.markdown("### 📈 Informações dos Dados")
                     st.sidebar.metric("Total de pontos", len(df))
                     st.sidebar.metric("Período", f"{pd.to_datetime(df['time'].iloc[0]).strftime('%d/%m/%Y %H:%M')} - {pd.to_datetime(df['time'].iloc[-1]).strftime('%d/%m/%Y %H:%M')}")
@@ -118,9 +109,9 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
 
                     size = int((days_train/7) * len(df))
                     
-                    # Garantir que temos dados suficientes para treinar
+                   
                     if size < 10:
-                        size = min(len(df)//2, 50)  # Usar pelo menos 10 pontos ou metade dos dados
+                        size = min(len(df)//2, 50) 
                     
                     X_train = df[:size]["values"].dropna().values.reshape(-1,1)
                     
@@ -134,7 +125,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                         status_text.text('Detectando anomalias...')
                         progress_bar.progress(80)
                         
-                        # Predições no conjunto de teste
+                       
                         X_test = df[size:]["values"].dropna().values.reshape(-1,1)
                         test_indices = df[size:]["values"].dropna().index
                         
@@ -142,7 +133,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                             preds = model.predict(X_test)
                             scores = model.decision_function(X_test)
                             
-                            # Criar DataFrame com anomalias
+                           
                             test_df = df.iloc[test_indices].copy()
                             test_df['prediction'] = preds
                             test_df['isolation_score'] = scores
@@ -153,7 +144,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                             progress_bar.progress(100)
                             status_text.text('Concluído!')
                             
-                            # Limpar progress bar e status
+                           
                             progress_bar.empty()
                             status_text.empty()
                             
@@ -162,11 +153,9 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                             #       Visualization
                             #
                             ###########
-                            
-                            # Título da análise
+                                                       
                             st.subheader(f"🤖 Análise: {st.session_state.prom_query}")
-                            
-                            # Métricas resumo
+                                                       
                             col1, col2, col3, col4 = st.columns(4)
                             with col1:
                                 st.metric("🔍 Anomalias Detectadas", len(anomalies_df))
@@ -176,16 +165,14 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                 st.metric("📅 Dias de Treino", days_train)
                             with col4:
                                 st.metric("🦠 Contaminação", f"{contamination_level:.3f}")
-                            
-                            # Criar subplots
+                                                       
                             fig = make_subplots(
                                 rows=2, cols=1,
                                 subplot_titles=('Série Temporal com Anomalias', 'Isolation Scores'),
                                 vertical_spacing=0.08,
                                 shared_xaxes=True
                             )
-                            
-                            # Gráfico 1: Série temporal original
+                                                       
                             fig.add_trace(
                                 go.Scatter(
                                     x=df['time'],
@@ -197,8 +184,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                 ),
                                 row=1, col=1
                             )
-                            
-                            # Destacar área de treinamento
+                                                       
                             fig.add_shape(
                                 type="rect",
                                 x0=df['time'].min(),
@@ -210,8 +196,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                 line=dict(width=0),
                                 row=1, col=1
                             )
-                            
-                            # Adicionar anotação para área de treinamento
+                                                       
                             fig.add_annotation(
                                 x=df['time'].iloc[size//2] if size < len(df) else df['time'].iloc[len(df)//4],
                                 y=df['values'].max(),
@@ -222,8 +207,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                 bgcolor="lightblue",
                                 row=1, col=1
                             )
-                            
-                            # Anomalias na série original
+                                                       
                             if len(anomalies_df) > 0:
                                 fig.add_trace(
                                     go.Scatter(
@@ -236,8 +220,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                     ),
                                     row=1, col=1
                                 )
-                            
-                            # Gráfico 2: Isolation Scores
+                                                       
                             if len(test_df) > 0:
                                 fig.add_trace(
                                     go.Scatter(
@@ -251,8 +234,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                     ),
                                     row=2, col=1
                                 )
-                                
-                                # Linha de limiar (0 é o limiar padrão do Isolation Forest)
+                                                               
                                 fig.add_hline(
                                     y=0,
                                     line_dash="dash",
@@ -260,8 +242,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                     annotation_text="Limiar de Anomalia",
                                     row=2, col=1
                                 )
-                                
-                                # Anomalias no gráfico de scores
+                                                               
                                 if len(anomalies_df) > 0:
                                     fig.add_trace(
                                         go.Scatter(
@@ -275,8 +256,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                         ),
                                         row=2, col=1
                                     )
-                            
-                            # Layout do gráfico
+                                                       
                             fig.update_layout(
                                 height=700,
                                 title_text="Análise de Anomalias com Isolation Forest",
@@ -295,12 +275,10 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                             fig.update_yaxes(title_text="Isolation Score", row=2, col=1)
                             
                             st.plotly_chart(fig, use_container_width=True)
-                            
-                            # Mostrar estatísticas detalhadas se houver anomalias
+                                                       
                             if len(anomalies_df) > 0:
                                 st.subheader("🚨 Detalhes das Anomalias")
-                                
-                                # Preparar dados para exibição
+                                                               
                                 display_anomalies = anomalies_df.copy()
                                 display_anomalies['time_formatted'] = pd.to_datetime(display_anomalies['time']).dt.strftime('%d/%m/%Y %H:%M:%S')
                                 
@@ -312,8 +290,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                     }),
                                     use_container_width=True
                                 )
-                                
-                                # Estatísticas das anomalias
+                                                               
                                 col1, col2 = st.columns(2)
                                 with col1:
                                     st.metric("🔢 Score Médio", f"{anomalies_df['isolation_score'].mean():.4f}")
@@ -321,8 +298,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                 with col2:
                                     st.metric("📈 Score Máximo", f"{anomalies_df['isolation_score'].max():.4f}")
                                     st.metric("📏 Desvio Padrão", f"{anomalies_df['isolation_score'].std():.4f}")
-                                
-                                # Opção para download dos dados
+                                                               
                                 csv = display_anomalies.to_csv(index=False)
                                 st.download_button(
                                     label="📥 Baixar Anomalias (CSV)",
@@ -330,8 +306,7 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
                                     file_name=f"anomalias_isolation_{st.session_state.prom_query.replace('/', '_')}.csv",
                                     mime='text/csv'
                                 )
-                                
-                                # Distribuição dos scores
+                                                               
                                 st.subheader("📊 Distribuição dos Isolation Scores")
                                 fig_hist = go.Figure()
                                 fig_hist.add_trace(go.Histogram(

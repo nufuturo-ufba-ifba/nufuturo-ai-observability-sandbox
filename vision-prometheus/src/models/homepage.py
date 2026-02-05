@@ -18,13 +18,17 @@ def submitted_form():
     st.session_state.delta = st.session_state.get('delta_input', 3)
     st.session_state.form_submitted = True  # Marcar que o formulário foi submetido
 
+# Função para obter conexão com Prometheus (lazy loading)
+def get_prom_connection():
+    if "prom_connection" not in st.session_state:
+        st.session_state.prom_connection = query.Prometheus(BASE_URL)
+    return st.session_state.prom_connection
+
 # Configurar título da página
 st.title("Home")
+st.caption(f"Conectado a: {BASE_URL}")
 
 # Inicializar variáveis de estado
-if "prom_connection" not in st.session_state:
-    st.session_state.prom_connection = query.Prometheus(BASE_URL)
-
 if "prom_query" not in st.session_state:
     st.session_state.prom_query = ""
 
@@ -86,8 +90,9 @@ if st.session_state.form_submitted:
                 inicio_iso = pd.to_datetime(st.session_state.begin).tz_localize('America/Sao_Paulo', ambiguous='raise', nonexistent='raise').strftime('%Y-%m-%dT%H:%M:%SZ')
                 fim_iso = pd.to_datetime(st.session_state.end).tz_localize('America/Sao_Paulo', ambiguous='raise', nonexistent='raise').strftime('%Y-%m-%dT%H:%M:%SZ')
 
-                # Consultar dados do Prometheus
-                prom_data = st.session_state.prom_connection.query_range(
+                # Consultar dados do Prometheus (conexão lazy)
+                prom_connection = get_prom_connection()
+                prom_data = prom_connection.query_range(
                     st.session_state.prom_query, inicio_iso, fim_iso, st.session_state.interval
                 )
 

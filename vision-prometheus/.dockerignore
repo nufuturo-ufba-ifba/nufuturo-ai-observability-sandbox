@@ -12,6 +12,7 @@
 
 # Ignorar cache do Python e arquivos compilados
 __pycache__/
+
 *.py[cod]
 *.pyo
 
