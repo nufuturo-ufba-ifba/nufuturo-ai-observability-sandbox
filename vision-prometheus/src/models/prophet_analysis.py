@@ -496,4 +496,4 @@ if all([st.session_state.prom_query, st.session_state.begin, st.session_state.en
 else:
     st.subheader("⚠️ Configuração Necessária")
     st.info("Por favor, vá para a página inicial e preencha todos os campos obrigatórios.")
-    st.page_link("./homepage.py", label="🏠 Ir para Home", use_container_width=True)
+    st.page_link("models/homepage.py", label="🏠 Ir para Home", use_container_width=True)

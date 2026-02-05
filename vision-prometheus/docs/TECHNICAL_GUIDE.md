@@ -32,7 +32,7 @@ Before analysis, configure data retrieval from Prometheus:
 
 ### 3. Length of Query Range (in days)
 - Select 1–7 days using the slider.
-- For Prophet, at least 2 days is recommended.
+- For Prophet, at least 3 days is recommended.
 
 ---
 

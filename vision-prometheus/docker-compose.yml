@@ -1,5 +1,5 @@
 services:
-  streamlit-dashboard:
+  vision-prometheus:
     container_name: vision-prometheus
     build: .
     ports:
